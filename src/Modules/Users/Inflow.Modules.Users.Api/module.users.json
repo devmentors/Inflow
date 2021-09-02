@@ -1,0 +1,16 @@
+{
+  "users": {
+    "module": {
+      "name": "Users",
+      "enabled": true
+    },
+    "registration": {
+      "enabled": true,
+      "invalidEmailProviders": [
+        "discard",
+        "dispostable",
+        "mailinator"
+      ]
+    }
+  }
+}

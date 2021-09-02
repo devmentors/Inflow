@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Inflow.Modules.Users.Core\Inflow.Modules.Users.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="module.users.json" />
+      <Content Include="module.users.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="module.users.development.json" />
+      <Content Include="module.users.development.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>

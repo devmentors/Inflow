@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Inflow.Modules.Payments.Api</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="module.payments.json" />
+        <Content Include="module.payments.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="module.payments.development.json" />
+        <Content Include="module.payments.development.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Inflow.Modules.Payments.Core\Inflow.Modules.Payments.Core.csproj" />
+    </ItemGroup>
+    
+</Project>

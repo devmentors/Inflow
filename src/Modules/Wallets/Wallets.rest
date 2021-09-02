@@ -1,0 +1,54 @@
+@url = http://localhost:5000
+@transferId = 00000000-0000-0000-0000-000000000001
+@walletId = 00000000-0000-0000-0000-000000000001
+@receiverWalletId = 00000000-0000-0000-0000-000000000001
+
+###
+GET {{url}}/transfers
+
+###
+GET {{url}}/transfers/{{walletId}}
+
+###
+POST {{url}}/transfers/incoming
+Content-Type: application/json
+
+{
+  "walletId": "{{walletId}}",
+  "currency": "PLN",
+  "amount": "1000",
+  "transferName": "test123",
+  "transferMetadata": "lorem ipsum metadata"
+}
+
+###
+POST {{url}}/transfers/outgoing
+Content-Type: application/json
+
+{
+  "walletId": "{{walletId}}",
+  "currency": "PLN",
+  "amount": "500",
+  "transferName": "test123",
+  "transferMetadata": "lorem ipsum metadata"
+}
+
+
+###
+POST {{url}}/transfers/funds
+Content-Type: application/json
+
+{
+  "ownerWalletId": "{{walletId}}",
+  "receiverWalletId": "{{receiverWalletId}}",
+  "currency": "PLN",
+  "amount": "200"
+}
+
+
+###
+GET {{url}}/wallets
+
+###
+GET {{url}}/wallets/{{walletId}}
+

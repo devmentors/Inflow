@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Customers\Inflow.Modules.Customers.Api\Inflow.Modules.Customers.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Inflow.Modules.Payments.Api\Inflow.Modules.Payments.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Saga\Inflow.Modules.Saga.Api\Inflow.Modules.Saga.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Wallets\Inflow.Modules.Wallets.Api\Inflow.Modules.Wallets.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Inflow.Modules.Users.Api\Inflow.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\..\Shared\Inflow.Shared.Abstractions\Inflow.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Shared\Inflow.Shared.Infrastructure\Inflow.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

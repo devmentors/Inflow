@@ -1,0 +1,50 @@
+@url = http://localhost:5000/customers
+@customerId = 00000000-0000-0000-0000-000000000001
+
+###
+GET {{url}}
+
+###
+GET {{url}}/{{customerId}}
+
+###
+POST {{url}}
+Content-Type: application/json
+
+{
+  "email": "user1@inflow.io"
+}
+
+###
+PUT {{url}}/complete
+Content-Type: application/json
+
+{
+  "name": "user1",
+  "fullName": "John Doe",
+  "address": "Test street 123",
+  "nationality": "PL",
+  "identityType": "id_card",
+  "identitySeries": "ABC1234567"
+}
+
+###
+PUT {{url}}/{{customerId}}/verify
+Content-Type: application/json
+
+{
+}
+
+###
+PUT {{url}}/{{customerId}}/lock
+Content-Type: application/json
+
+{
+}
+
+###
+PUT {{url}}/{{customerId}}/unlock
+Content-Type: application/json
+
+{
+}

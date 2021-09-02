@@ -1,0 +1,51 @@
+@url = http://localhost:5000
+@depositId = 00000000-0000-0000-0000-000000000001
+@withdrawalIban = PL10105000997603123456789123
+
+
+###
+GET {{url}}/deposits/accounts
+
+###
+GET {{url}}/deposits
+
+###
+POST {{url}}/deposits
+Content-Type: application/json
+
+{
+  "currency": "PLN",
+  "amount": "1000"
+}
+
+###
+PUT {{url}}/deposits/{{depositId}}/complete
+Content-Type: application/json
+
+{
+  "secret": "secret"
+}
+
+###
+GET {{url}}/withdrawals/accounts
+
+###
+POST {{url}}/withdrawals/accounts
+Content-Type: application/json
+
+{
+  "currency": "PLN",
+  "iban": "{{withdrawalIban}}"
+}
+
+###
+GET {{url}}/withdrawals
+
+###
+POST {{url}}/withdrawals
+Content-Type: application/json
+
+{
+  "currency": "PLN",
+  "amount": "1000"
+}

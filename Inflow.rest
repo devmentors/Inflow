@@ -1,0 +1,16 @@
+@url = http://localhost:5000
+
+###
+GET {{url}}
+
+###
+GET {{url}}/customers
+
+###
+GET {{url}}/payments
+
+###
+GET {{url}}/wallets
+
+###
+GET {{url}}/users

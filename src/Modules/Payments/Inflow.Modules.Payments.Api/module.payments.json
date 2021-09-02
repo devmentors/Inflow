@@ -1,0 +1,8 @@
+{
+  "payments": {
+    "module": {
+      "name": "Payments",
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Inflow.Modules.Wallets.Api</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="module.wallets.json" />
+        <Content Include="module.wallets.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="module.wallets.development.json" />
+        <Content Include="module.wallets.development.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Inflow.Shared.Infrastructure\Inflow.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\Inflow.Modules.Wallets.Infrastructure\Inflow.Modules.Wallets.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

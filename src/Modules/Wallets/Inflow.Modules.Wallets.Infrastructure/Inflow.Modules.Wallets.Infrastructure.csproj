@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Inflow.Shared.Infrastructure\Inflow.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\Inflow.Modules.Wallets.Application\Inflow.Modules.Wallets.Application.csproj" />
+    </ItemGroup>
+
+</Project>
