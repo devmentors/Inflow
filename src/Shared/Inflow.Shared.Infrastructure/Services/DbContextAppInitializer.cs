@@ -34,11 +34,20 @@ namespace Inflow.Shared.Infrastructure.Services
                 {
                     continue;
                 }
-                
-                _logger.LogInformation("Running DB context for module {Module}...", dbContextType.GetModuleName());
+
+                var moduleName = dbContextType.GetModuleName();
+                if (string.IsNullOrWhiteSpace(moduleName))
+                {
+                    _logger.LogInformation("Running DB context...");
+                }
+                else
+                {
+                    _logger.LogInformation("Running DB context for module {Module}...", dbContextType.GetModuleName());
+                }
+
                 await dbContext.Database.MigrateAsync(cancellationToken);
             }
-            
+
             var initializers = scope.ServiceProvider.GetServices<IInitializer>();
             foreach (var initializer in initializers)
             {

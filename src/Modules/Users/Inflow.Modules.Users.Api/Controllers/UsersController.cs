@@ -33,6 +33,15 @@ namespace Inflow.Modules.Users.Api.Controllers
         public async Task<ActionResult<UserDetailsDto>> GetAsync(Guid userId)
             => OkOrNotFound(await _dispatcher.QueryAsync(new GetUser {UserId = userId}));
 
+        // On purpose, for sync communication sample
+        [HttpGet("by-email/{email}")]
+        [AllowAnonymous]
+        [SwaggerOperation("Get user by email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserDetailsDto>> GetByEmailAsync(string email)
+            => OkOrNotFound(await _dispatcher.QueryAsync(new GetUserByEmail { Email = email }));
+        
         [HttpGet]
         [SwaggerOperation("Browse users")]
         [ProducesResponseType(StatusCodes.Status200OK)]

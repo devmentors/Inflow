@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Inflow.Modules.Payments.Core;
+using Inflow.Modules.Payments.Core.Deposits.Events.External;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Inflow.Shared.Abstractions.Modules;
+using Inflow.Shared.Infrastructure.Messaging;
 
 namespace Inflow.Modules.Payments.Api
 {
@@ -22,6 +24,11 @@ namespace Inflow.Modules.Payments.Api
         
         public void Use(IApplicationBuilder app)
         {
+            app.Subscriptions()
+                .SubscribeEvent<CustomerCompleted>()
+                .SubscribeEvent<CustomerLocked>()
+                .SubscribeEvent<CustomerUnlocked>()
+                .SubscribeEvent<CustomerVerified>();
         }
     }
 }

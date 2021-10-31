@@ -17,7 +17,7 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
             modelBuilder
                 .HasDefaultSchema("wallets")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Inflow.Modules.Wallets.Core.Owners.Entities.Owner", b =>

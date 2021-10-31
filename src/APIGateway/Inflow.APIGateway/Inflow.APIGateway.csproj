@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Yarp.ReverseProxy" Version="1.0.0-rc.1.21520.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Inflow.Shared.Infrastructure\Inflow.Shared.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

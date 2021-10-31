@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Chronicle;
+using Inflow.Modules.Saga.Api.Messages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Inflow.Shared.Abstractions.Modules;
+using Inflow.Shared.Infrastructure.Messaging;
 
 namespace Inflow.Modules.Saga.Api
 {
@@ -22,6 +24,9 @@ namespace Inflow.Modules.Saga.Api
         
         public void Use(IApplicationBuilder app)
         {
+            app.Subscriptions()
+                .SubscribeEvent<CustomerCompleted>()
+                .SubscribeEvent<CustomerVerified>();
         }
     }
 }

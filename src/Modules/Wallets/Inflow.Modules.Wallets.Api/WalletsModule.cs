@@ -6,7 +6,7 @@ using Inflow.Modules.Wallets.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Inflow.Shared.Abstractions.Modules;
-using Inflow.Shared.Infrastructure.Contracts;
+using Inflow.Shared.Infrastructure.Messaging;
 
 namespace Inflow.Modules.Wallets.Api
 {
@@ -28,9 +28,9 @@ namespace Inflow.Modules.Wallets.Api
         
         public void Use(IApplicationBuilder app)
         {
-            app.UseContracts()
-                .Register<CustomerCompletedContract>()
-                .Register<CustomerVerifiedContract>();
+            app.Subscriptions()
+                .SubscribeEvent<CustomerCompleted>()
+                .SubscribeEvent<CustomerVerified>();
         }
     }
 }

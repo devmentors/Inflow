@@ -2,7 +2,7 @@
   "customers": {
     "module": {
       "name": "Customers",
-      "enabled": true
+      "enabled": false
     }
   }
 }

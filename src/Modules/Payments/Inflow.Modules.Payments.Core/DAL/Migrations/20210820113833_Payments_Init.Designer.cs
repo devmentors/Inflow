@@ -19,7 +19,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
             modelBuilder
                 .HasDefaultSchema("payments")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Inflow.Modules.Payments.Core.Deposits.Domain.Entities.Deposit", b =>

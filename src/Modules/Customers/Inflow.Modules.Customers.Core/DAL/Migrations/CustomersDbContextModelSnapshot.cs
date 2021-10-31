@@ -17,7 +17,7 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
             modelBuilder
                 .HasDefaultSchema("customers")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Inflow.Modules.Customers.Core.Domain.Entities.Customer", b =>
