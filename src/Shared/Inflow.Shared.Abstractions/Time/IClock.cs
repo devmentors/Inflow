@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Inflow.Shared.Abstractions.Time
+namespace Inflow.Shared.Abstractions.Time;
+
+public interface IClock
 {
-    public interface IClock
-    {
-        DateTime CurrentDate();
-    }
+    DateTime CurrentDate();
 }

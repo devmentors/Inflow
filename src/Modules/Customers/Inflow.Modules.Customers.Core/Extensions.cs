@@ -12,18 +12,17 @@ using Inflow.Shared.Infrastructure.Postgres;
 [assembly: InternalsVisibleTo("Inflow.Modules.Customers.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace Inflow.Modules.Customers.Core
+namespace Inflow.Modules.Customers.Core;
+
+internal static class Extensions
 {
-    internal static class Extensions
+    public static IServiceCollection AddCore(this IServiceCollection services)
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
-        {
-            return services
-                .AddSingleton<IUserApiClient, UserApiClient>()
-                .AddScoped<ICustomerRepository, CustomerRepository>()
-                .AddPostgres<CustomersDbContext>()
-                .AddOutbox<CustomersDbContext>()
-                .AddUnitOfWork<CustomersUnitOfWork>();
-        }
+        return services
+            .AddSingleton<IUserApiClient, UserApiClient>()
+            .AddScoped<ICustomerRepository, CustomerRepository>()
+            .AddPostgres<CustomersDbContext>()
+            .AddOutbox<CustomersDbContext>()
+            .AddUnitOfWork<CustomersUnitOfWork>();
     }
 }

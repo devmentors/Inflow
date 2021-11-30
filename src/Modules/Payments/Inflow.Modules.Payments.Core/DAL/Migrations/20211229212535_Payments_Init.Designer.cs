@@ -7,10 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace Inflow.Modules.Payments.Core.DAL.Migrations
 {
     [DbContext(typeof(PaymentsDbContext))]
-    [Migration("20210820113833_Payments_Init")]
+    [Migration("20211229212535_Payments_Init")]
     partial class Payments_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,9 +20,10 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("payments")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Inflow.Modules.Payments.Core.Deposits.Domain.Entities.Deposit", b =>
                 {
@@ -52,7 +55,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Deposits");
+                    b.ToTable("Deposits", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Payments.Core.Deposits.Domain.Entities.DepositAccount", b =>
@@ -80,7 +83,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
                     b.HasIndex("CustomerId", "Currency")
                         .IsUnique();
 
-                    b.ToTable("DepositAccounts");
+                    b.ToTable("DepositAccounts", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Payments.Core.Withdrawals.Domain.Entities.Withdrawal", b =>
@@ -113,7 +116,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Withdrawals");
+                    b.ToTable("Withdrawals", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Payments.Core.Withdrawals.Domain.Entities.WithdrawalAccount", b =>
@@ -141,7 +144,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
                     b.HasIndex("CustomerId", "Currency")
                         .IsUnique();
 
-                    b.ToTable("WithdrawalAccounts");
+                    b.ToTable("WithdrawalAccounts", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Payments.Infrastructure.Entities.Customer", b =>
@@ -166,7 +169,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.InboxMessage", b =>
@@ -186,7 +189,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Inbox");
+                    b.ToTable("Inbox", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.OutboxMessage", b =>
@@ -221,7 +224,7 @@ namespace Inflow.Modules.Payments.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Outbox");
+                    b.ToTable("Outbox", "payments");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Payments.Core.Deposits.Domain.Entities.Deposit", b =>

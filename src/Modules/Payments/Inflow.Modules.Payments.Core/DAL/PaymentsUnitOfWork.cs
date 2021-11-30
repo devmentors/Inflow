@@ -1,11 +1,10 @@
 ﻿using Inflow.Shared.Infrastructure.Postgres;
 
-namespace Inflow.Modules.Payments.Core.DAL
+namespace Inflow.Modules.Payments.Core.DAL;
+
+internal class PaymentsUnitOfWork : PostgresUnitOfWork<PaymentsDbContext>
 {
-    internal class PaymentsUnitOfWork : PostgresUnitOfWork<PaymentsDbContext>
+    public PaymentsUnitOfWork(PaymentsDbContext dbContext) : base(dbContext)
     {
-        public PaymentsUnitOfWork(PaymentsDbContext dbContext) : base(dbContext)
-        {
-        }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace Inflow.Shared.Abstractions.Exceptions
+namespace Inflow.Shared.Abstractions.Exceptions;
+
+public abstract class InflowException : Exception
 {
-    public abstract class InflowException : Exception
+    protected InflowException(string message) : base(message)
     {
-        protected InflowException(string message) : base(message)
-        {
-        }
     }
 }

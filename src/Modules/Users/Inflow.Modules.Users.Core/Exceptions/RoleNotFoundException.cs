@@ -1,11 +1,10 @@
 ﻿using Inflow.Shared.Abstractions.Exceptions;
 
-namespace Inflow.Modules.Users.Core.Exceptions
+namespace Inflow.Modules.Users.Core.Exceptions;
+
+internal class RoleNotFoundException : InflowException
 {
-    internal class RoleNotFoundException : InflowException
+    public RoleNotFoundException(string role) : base($"Role: '{role}' was not found.")
     {
-        public RoleNotFoundException(string role) : base($"Role: '{role}' was not found.")
-        {
-        }
     }
 }

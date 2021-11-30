@@ -9,30 +9,29 @@ using Microsoft.EntityFrameworkCore;
 using Inflow.Shared.Abstractions.Queries;
 using Inflow.Shared.Infrastructure.Postgres;
 
-namespace Inflow.Modules.Wallets.Infrastructure.Storage
+namespace Inflow.Modules.Wallets.Infrastructure.Storage;
+
+internal sealed class TransferStorage : ITransferStorage
 {
-    internal sealed class TransferStorage : ITransferStorage
+    private readonly DbSet<Transfer> _transfers;
+
+    public TransferStorage(WalletsDbContext dbContext)
     {
-        private readonly DbSet<Transfer> _transfers;
-
-        public TransferStorage(WalletsDbContext dbContext)
-        {
-            _transfers = dbContext.Transfers;
-        }
-
-        public Task<Transfer> FindAsync(Expression<Func<Transfer, bool>> expression)
-            => _transfers
-                .AsNoTracking()
-                .AsQueryable()
-                .Where(expression)
-                .SingleOrDefaultAsync();
-
-        public Task<Paged<Transfer>> BrowseAsync(Expression<Func<Transfer, bool>> expression, IPagedQuery query)
-            => _transfers
-                .AsNoTracking()
-                .AsQueryable()
-                .Where(expression)
-                .OrderBy(x => x.CreatedAt)
-                .PaginateAsync(query);
+        _transfers = dbContext.Transfers;
     }
+
+    public Task<Transfer> FindAsync(Expression<Func<Transfer, bool>> expression)
+        => _transfers
+            .AsNoTracking()
+            .AsQueryable()
+            .Where(expression)
+            .SingleOrDefaultAsync();
+
+    public Task<Paged<Transfer>> BrowseAsync(Expression<Func<Transfer, bool>> expression, IPagedQuery query)
+        => _transfers
+            .AsNoTracking()
+            .AsQueryable()
+            .Where(expression)
+            .OrderBy(x => x.CreatedAt)
+            .PaginateAsync(query);
 }

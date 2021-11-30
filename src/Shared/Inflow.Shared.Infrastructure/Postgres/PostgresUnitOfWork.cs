@@ -2,30 +2,29 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Inflow.Shared.Infrastructure.Postgres
+namespace Inflow.Shared.Infrastructure.Postgres;
+
+public abstract class PostgresUnitOfWork<T> : IUnitOfWork where T : DbContext
 {
-    public abstract class PostgresUnitOfWork<T> : IUnitOfWork where T : DbContext
+    private readonly T _dbContext;
+
+    protected PostgresUnitOfWork(T dbContext)
     {
-        private readonly T _dbContext;
+        _dbContext = dbContext;
+    }
 
-        protected PostgresUnitOfWork(T dbContext)
+    public async Task ExecuteAsync(Func<Task> action)
+    {
+        await using var transaction = await _dbContext.Database.BeginTransactionAsync();
+        try
         {
-            _dbContext = dbContext;
+            await action();
+            await transaction.CommitAsync();
         }
-
-        public async Task ExecuteAsync(Func<Task> action)
+        catch (Exception)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-            try
-            {
-                await action();
-                await transaction.CommitAsync();
-            }
-            catch (Exception)
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
+            await transaction.RollbackAsync();
+            throw;
         }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace Inflow.Modules.Users.Core.DAL.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
@@ -16,9 +18,10 @@ namespace Inflow.Modules.Users.Core.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("users")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Inflow.Modules.Users.Core.Entities.Role", b =>
                 {
@@ -31,7 +34,7 @@ namespace Inflow.Modules.Users.Core.DAL.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", "users");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Users.Core.Entities.User", b =>
@@ -66,7 +69,7 @@ namespace Inflow.Modules.Users.Core.DAL.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", "users");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.InboxMessage", b =>
@@ -86,7 +89,7 @@ namespace Inflow.Modules.Users.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Inbox");
+                    b.ToTable("Inbox", "users");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.OutboxMessage", b =>
@@ -121,7 +124,7 @@ namespace Inflow.Modules.Users.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Outbox");
+                    b.ToTable("Outbox", "users");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Users.Core.Entities.User", b =>

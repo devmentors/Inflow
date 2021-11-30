@@ -1,9 +1,8 @@
-﻿namespace Inflow.Modules.Payments.Core.Deposits.Domain.Entities
+﻿namespace Inflow.Modules.Payments.Core.Deposits.Domain.Entities;
+
+public enum DepositStatus
 {
-    public enum DepositStatus
-    {
-        Started = 1,
-        Completed = 2,
-        Rejected = 3
-    }
+    Started = 1,
+    Completed = 2,
+    Rejected = 3
 }

@@ -1,6 +1,5 @@
-﻿namespace Inflow.Shared.Abstractions.Kernel
+﻿namespace Inflow.Shared.Abstractions.Kernel;
+
+public interface IDomainEvent
 {
-    public interface IDomainEvent
-    {
-    }
 }

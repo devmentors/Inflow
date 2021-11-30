@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using Inflow.Shared.Abstractions.Messaging;
 
-namespace Inflow.Shared.Infrastructure.Messaging.Dispatchers
+namespace Inflow.Shared.Infrastructure.Messaging.Dispatchers;
+
+public interface IAsyncMessageDispatcher
 {
-    public interface IAsyncMessageDispatcher
-    {
-        Task PublishAsync<TMessage>(TMessage message, CancellationToken cancellationToken = default)
-            where TMessage : class, IMessage;
-    }
+    Task PublishAsync<TMessage>(TMessage message, CancellationToken cancellationToken = default)
+        where TMessage : class, IMessage;
 }

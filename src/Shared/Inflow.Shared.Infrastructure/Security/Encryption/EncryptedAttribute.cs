@@ -1,9 +1,8 @@
 using System;
 
-namespace Inflow.Shared.Infrastructure.Security.Encryption
+namespace Inflow.Shared.Infrastructure.Security.Encryption;
+
+[AttributeUsage(AttributeTargets.Property)]
+public class EncryptedAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class EncryptedAttribute : Attribute
-    {
-    }
 }

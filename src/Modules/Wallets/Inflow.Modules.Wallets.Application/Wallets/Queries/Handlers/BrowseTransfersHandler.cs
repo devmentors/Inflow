@@ -9,37 +9,36 @@ using Inflow.Modules.Wallets.Core.Wallets.Entities;
 using Inflow.Shared.Abstractions.Kernel.ValueObjects;
 using Inflow.Shared.Abstractions.Queries;
 
-namespace Inflow.Modules.Wallets.Application.Wallets.Queries.Handlers
+namespace Inflow.Modules.Wallets.Application.Wallets.Queries.Handlers;
+
+internal sealed class BrowseTransfersHandler : IQueryHandler<BrowseTransfers, Paged<TransferDto>>
 {
-    internal sealed class BrowseTransfersHandler : IQueryHandler<BrowseTransfers, Paged<TransferDto>>
+    private readonly ITransferStorage _storage;
+
+    public BrowseTransfersHandler(ITransferStorage storage)
     {
-        private readonly ITransferStorage _storage;
+        _storage = storage;
+    }
 
-        public BrowseTransfersHandler(ITransferStorage storage)
+    public async Task<Paged<TransferDto>> HandleAsync(BrowseTransfers query,
+        CancellationToken cancellationToken = default)
+    {
+        Expression<Func<Transfer, bool>> expression = x => true;
+
+        if (!string.IsNullOrWhiteSpace(query.Currency))
         {
-            _storage = storage;
+            _ = new Currency(query.Currency);
+            expression = expression.And(x => x.Currency == query.Currency);
         }
 
-        public async Task<Paged<TransferDto>> HandleAsync(BrowseTransfers query,
-            CancellationToken cancellationToken = default)
+        if (!string.IsNullOrWhiteSpace(query.Name))
         {
-            Expression<Func<Transfer, bool>> expression = x => true;
-
-            if (!string.IsNullOrWhiteSpace(query.Currency))
-            {
-                _ = new Currency(query.Currency);
-                expression = expression.And(x => x.Currency == query.Currency);
-            }
-
-            if (!string.IsNullOrWhiteSpace(query.Name))
-            {
-                expression = expression.And(x => x.Name == query.Name);
-            }
-
-            var result = await _storage.BrowseAsync(expression, query);
-            var transfers = result.Items.Select(x => x.AsDto()).ToList();
-
-            return Paged<TransferDto>.From(result, transfers);
+            expression = expression.And(x => x.Name == query.Name);
         }
+
+        var result = await _storage.BrowseAsync(expression, query);
+        var transfers = result.Items.Select(x => x.AsDto()).ToList();
+
+        return Paged<TransferDto>.From(result, transfers);
     }
 }

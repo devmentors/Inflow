@@ -7,10 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace Inflow.Modules.Customers.Core.DAL.Migrations
 {
     [DbContext(typeof(CustomersDbContext))]
-    [Migration("20210820112749_Customers_Init")]
+    [Migration("20211229212455_Customers_Init")]
     partial class Customers_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,9 +20,10 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("customers")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Inflow.Modules.Customers.Core.Domain.Entities.Customer", b =>
                 {
@@ -77,7 +80,7 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", "customers");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.InboxMessage", b =>
@@ -97,7 +100,7 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Inbox");
+                    b.ToTable("Inbox", "customers");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.OutboxMessage", b =>
@@ -132,7 +135,7 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Outbox");
+                    b.ToTable("Outbox", "customers");
                 });
 #pragma warning restore 612, 618
         }

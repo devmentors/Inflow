@@ -16,24 +16,23 @@ using Inflow.Shared.Infrastructure.Postgres;
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 
-namespace Inflow.Modules.Users.Core
-{
-    internal static class Extensions
-    {
-        public static IServiceCollection AddCore(this IServiceCollection services)
-        {
-            var registrationOptions = services.GetOptions<RegistrationOptions>("users:registration");
-            services.AddSingleton(registrationOptions);
+namespace Inflow.Modules.Users.Core;
 
-            return services
-                .AddSingleton<IUserRequestStorage, UserRequestStorage>()
-                .AddScoped<IRoleRepository, RoleRepository>()
-                .AddScoped<IUserRepository, UserRepository>()
-                .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
-                .AddPostgres<UsersDbContext>()
-                .AddOutbox<UsersDbContext>()
-                .AddUnitOfWork<UsersUnitOfWork>()
-                .AddInitializer<UsersInitializer>();
-        }
+internal static class Extensions
+{
+    public static IServiceCollection AddCore(this IServiceCollection services)
+    {
+        var registrationOptions = services.GetOptions<RegistrationOptions>("users:registration");
+        services.AddSingleton(registrationOptions);
+
+        return services
+            .AddSingleton<IUserRequestStorage, UserRequestStorage>()
+            .AddScoped<IRoleRepository, RoleRepository>()
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
+            .AddPostgres<UsersDbContext>()
+            .AddOutbox<UsersDbContext>()
+            .AddUnitOfWork<UsersUnitOfWork>()
+            .AddInitializer<UsersInitializer>();
     }
 }
