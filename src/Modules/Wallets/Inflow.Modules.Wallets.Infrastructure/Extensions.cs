@@ -16,21 +16,20 @@ using Inflow.Shared.Infrastructure.Postgres;
 [assembly: InternalsVisibleTo("Inflow.Modules.Wallets.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace Inflow.Modules.Wallets.Infrastructure
+namespace Inflow.Modules.Wallets.Infrastructure;
+
+internal static class Extensions
 {
-    internal static class Extensions
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
-        {
-            return services
-                .AddScoped<ITransferStorage, TransferStorage>()
-                .AddScoped<IWalletStorage, WalletStorage>()
-                .AddScoped<ICorporateOwnerRepository, CorporateOwnerRepository>()
-                .AddScoped<IIndividualOwnerRepository, IndividualOwnerRepository>()
-                .AddScoped<IWalletRepository, WalletRepository>()
-                .AddPostgres<WalletsDbContext>()
-                .AddOutbox<WalletsDbContext>()
-                .AddUnitOfWork<WalletsUnitOfWork>();
-        }
+        return services
+            .AddScoped<ITransferStorage, TransferStorage>()
+            .AddScoped<IWalletStorage, WalletStorage>()
+            .AddScoped<ICorporateOwnerRepository, CorporateOwnerRepository>()
+            .AddScoped<IIndividualOwnerRepository, IndividualOwnerRepository>()
+            .AddScoped<IWalletRepository, WalletRepository>()
+            .AddPostgres<WalletsDbContext>()
+            .AddOutbox<WalletsDbContext>()
+            .AddUnitOfWork<WalletsUnitOfWork>();
     }
 }

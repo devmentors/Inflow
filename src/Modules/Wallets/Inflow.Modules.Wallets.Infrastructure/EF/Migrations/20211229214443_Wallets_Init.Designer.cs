@@ -7,10 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(WalletsDbContext))]
-    [Migration("20210829093406_Wallets_Init")]
+    [Migration("20211229214443_Wallets_Init")]
     partial class Wallets_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,9 +20,10 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("wallets")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.11")
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Inflow.Modules.Wallets.Core.Owners.Entities.Owner", b =>
                 {
@@ -46,7 +49,7 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owners", "wallets");
 
                     b.HasDiscriminator<string>("Type").HasValue("Owner");
                 });
@@ -85,7 +88,7 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 
                     b.HasIndex("WalletId");
 
-                    b.ToTable("Transfers");
+                    b.ToTable("Transfers", "wallets");
 
                     b.HasDiscriminator<string>("Type").HasValue("Transfer");
                 });
@@ -114,7 +117,7 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
                     b.HasIndex("OwnerId", "Currency")
                         .IsUnique();
 
-                    b.ToTable("Wallets");
+                    b.ToTable("Wallets", "wallets");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.InboxMessage", b =>
@@ -134,7 +137,7 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Inbox");
+                    b.ToTable("Inbox", "wallets");
                 });
 
             modelBuilder.Entity("Inflow.Shared.Infrastructure.Messaging.Outbox.OutboxMessage", b =>
@@ -169,7 +172,7 @@ namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Outbox");
+                    b.ToTable("Outbox", "wallets");
                 });
 
             modelBuilder.Entity("Inflow.Modules.Wallets.Core.Owners.Entities.CorporateOwner", b =>

@@ -1,10 +1,9 @@
 ﻿using System;
 using Inflow.Shared.Abstractions.Commands;
 
-namespace Inflow.Modules.Payments.Core.Withdrawals.Commands
+namespace Inflow.Modules.Payments.Core.Withdrawals.Commands;
+
+internal record AddWithdrawalAccount(Guid CustomerId, string Currency, string Iban) : ICommand
 {
-    internal record AddWithdrawalAccount(Guid CustomerId, string Currency, string Iban) : ICommand
-    {
-        public Guid AccountId { get; init; } = Guid.NewGuid();
-    }
+    public Guid AccountId { get; init; } = Guid.NewGuid();
 }

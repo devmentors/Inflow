@@ -1,14 +1,13 @@
 ﻿using Inflow.Shared.Abstractions.Exceptions;
 
-namespace Inflow.Modules.Wallets.Core.Wallets.Exceptions
-{
-    internal class InvalidTransferNameException : InflowException
-    {
-        public string Name { get; }
+namespace Inflow.Modules.Wallets.Core.Wallets.Exceptions;
 
-        public InvalidTransferNameException(string name) : base($"Transfer name: '{name}' is invalid.")
-        {
-            Name = name;
-        }
+internal class InvalidTransferNameException : InflowException
+{
+    public string Name { get; }
+
+    public InvalidTransferNameException(string name) : base($"Transfer name: '{name}' is invalid.")
+    {
+        Name = name;
     }
 }

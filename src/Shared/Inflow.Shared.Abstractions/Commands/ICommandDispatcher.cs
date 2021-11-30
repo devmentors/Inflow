@@ -1,10 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Inflow.Shared.Abstractions.Commands
+namespace Inflow.Shared.Abstractions.Commands;
+
+public interface ICommandDispatcher
 {
-    public interface ICommandDispatcher
-    {
-        Task SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default) where TCommand : class, ICommand;
-    }
+    Task SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default) where TCommand : class, ICommand;
 }

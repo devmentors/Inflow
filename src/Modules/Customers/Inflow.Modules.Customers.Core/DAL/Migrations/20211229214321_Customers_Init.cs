@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Inflow.Modules.Customers.Core.DAL.Migrations
 {
     public partial class Customers_Init : Migration

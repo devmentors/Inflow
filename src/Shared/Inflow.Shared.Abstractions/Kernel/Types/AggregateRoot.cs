@@ -1,43 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Inflow.Shared.Abstractions.Kernel.Types
+namespace Inflow.Shared.Abstractions.Kernel.Types;
+
+public abstract class AggregateRoot<T>
 {
-    public abstract class AggregateRoot<T>
-    {
-        public T Id { get; protected set; }
-        public int Version { get; protected set; } = 1;
-        public IEnumerable<IDomainEvent> Events => _events;
+    public T Id { get; protected set; }
+    public int Version { get; protected set; } = 1;
+    public IEnumerable<IDomainEvent> Events => _events;
         
-        private readonly List<IDomainEvent> _events = new();
-        private bool _versionIncremented;
+    private readonly List<IDomainEvent> _events = new();
+    private bool _versionIncremented;
 
-        protected void AddEvent(IDomainEvent @event)
+    protected void AddEvent(IDomainEvent @event)
+    {
+        if (!_events.Any() && !_versionIncremented)
         {
-            if (!_events.Any() && !_versionIncremented)
-            {
-                Version++;
-                _versionIncremented = true;
-            }
-            
-            _events.Add(@event);
-        }
-
-        public void ClearEvents() => _events.Clear();
-
-        protected void IncrementVersion()
-        {
-            if (_versionIncremented)
-            {
-                return;
-            }
-            
             Version++;
             _versionIncremented = true;
         }
+            
+        _events.Add(@event);
     }
 
-    public abstract class AggregateRoot : AggregateRoot<AggregateId>
+    public void ClearEvents() => _events.Clear();
+
+    protected void IncrementVersion()
     {
+        if (_versionIncremented)
+        {
+            return;
+        }
+            
+        Version++;
+        _versionIncremented = true;
     }
+}
+
+public abstract class AggregateRoot : AggregateRoot<AggregateId>
+{
 }

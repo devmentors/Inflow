@@ -1,7 +1,6 @@
-﻿namespace Inflow.Shared.Abstractions.Messaging
+﻿namespace Inflow.Shared.Abstractions.Messaging;
+
+public interface IMessageContextProvider
 {
-    public interface IMessageContextProvider
-    {
-        IMessageContext Get(IMessage message);
-    }
+    IMessageContext Get(IMessage message);
 }

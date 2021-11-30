@@ -1,10 +1,9 @@
 ﻿using System.Threading.Channels;
 
-namespace Inflow.Shared.Infrastructure.Messaging.Dispatchers
+namespace Inflow.Shared.Infrastructure.Messaging.Dispatchers;
+
+public interface IMessageChannel
 {
-    public interface IMessageChannel
-    {
-        ChannelReader<MessageEnvelope> Reader { get; }
-        ChannelWriter<MessageEnvelope> Writer { get; }
-    }
+    ChannelReader<MessageEnvelope> Reader { get; }
+    ChannelWriter<MessageEnvelope> Writer { get; }
 }

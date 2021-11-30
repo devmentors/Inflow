@@ -6,27 +6,26 @@ using Microsoft.Extensions.DependencyInjection;
 using Inflow.Shared.Abstractions.Modules;
 using Inflow.Shared.Infrastructure.Messaging;
 
-namespace Inflow.Modules.Saga.Api
-{
-    internal class SagaModule : IModule
-    {
-        public string Name { get; } = "Saga";
-        
-        public IEnumerable<string> Policies { get; } = new[]
-        {
-            "saga"
-        };
+namespace Inflow.Modules.Saga.Api;
 
-        public void Register(IServiceCollection services)
-        {
-            services.AddChronicle();
-        }
+internal class SagaModule : IModule
+{
+    public string Name { get; } = "Saga";
         
-        public void Use(IApplicationBuilder app)
-        {
-            app.Subscriptions()
-                .SubscribeEvent<CustomerCompleted>()
-                .SubscribeEvent<CustomerVerified>();
-        }
+    public IEnumerable<string> Policies { get; } = new[]
+    {
+        "saga"
+    };
+
+    public void Register(IServiceCollection services)
+    {
+        services.AddChronicle();
+    }
+        
+    public void Use(IApplicationBuilder app)
+    {
+        app.Subscriptions()
+            .SubscribeEvent<CustomerCompleted>()
+            .SubscribeEvent<CustomerVerified>();
     }
 }

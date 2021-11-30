@@ -1,14 +1,13 @@
 ﻿using Inflow.Shared.Abstractions.Exceptions;
 
-namespace Inflow.Services.Customers.Core.Exceptions
-{
-    public class InvalidNameException : InflowException
-    {
-        public string Name { get; }
+namespace Inflow.Services.Customers.Core.Exceptions;
 
-        public InvalidNameException(string name) : base($"Name: '{name}' is invalid.")
-        {
-            Name = name;
-        }
+public class InvalidNameException : InflowException
+{
+    public string Name { get; }
+
+    public InvalidNameException(string name) : base($"Name: '{name}' is invalid.")
+    {
+        Name = name;
     }
 }

@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace Inflow.Shared.Abstractions.Contexts
+namespace Inflow.Shared.Abstractions.Contexts;
+
+public interface IContext
 {
-    public interface IContext
-    {
-        Guid RequestId { get; }
-        Guid CorrelationId { get; }
-        string TraceId { get; }
-        string IpAddress { get; }
-        string UserAgent { get; }
-        IIdentityContext Identity { get; }
-    }
+    Guid RequestId { get; }
+    Guid CorrelationId { get; }
+    string TraceId { get; }
+    string IpAddress { get; }
+    string UserAgent { get; }
+    IIdentityContext Identity { get; }
 }

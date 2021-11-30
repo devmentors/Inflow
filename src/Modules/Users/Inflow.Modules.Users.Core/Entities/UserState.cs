@@ -1,8 +1,7 @@
-﻿namespace Inflow.Modules.Users.Core.Entities
+﻿namespace Inflow.Modules.Users.Core.Entities;
+
+internal enum UserState
 {
-    internal enum UserState
-    {
-        Active = 1,
-        Locked = 2
-    }
+    Active = 1,
+    Locked = 2
 }

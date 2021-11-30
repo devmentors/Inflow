@@ -2,10 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Inflow.Shared.Abstractions.Messaging
+namespace Inflow.Shared.Abstractions.Messaging;
+
+public interface IMessageBrokerClient
 {
-    public interface IMessageBrokerClient
-    {
-        Task SendAsync(IMessage message, Guid messageId, CancellationToken cancellationToken = default);
-    }
+    Task SendAsync(IMessage message, Guid messageId, CancellationToken cancellationToken = default);
 }

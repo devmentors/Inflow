@@ -1,7 +1,6 @@
-namespace Inflow.Shared.Infrastructure.Security.Encryption
+namespace Inflow.Shared.Infrastructure.Security.Encryption;
+
+public interface IMd5
 {
-    public interface IMd5
-    {
-        string Calculate(string value);
-    }
+    string Calculate(string value);
 }

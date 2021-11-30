@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Inflow.Modules.Payments.Core.DAL.Migrations
 {
     public partial class Payments_Init : Migration

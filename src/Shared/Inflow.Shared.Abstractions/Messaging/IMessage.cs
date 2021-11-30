@@ -1,6 +1,5 @@
-﻿namespace Inflow.Shared.Abstractions.Messaging
+﻿namespace Inflow.Shared.Abstractions.Messaging;
+
+public interface IMessage
 {
-    public interface IMessage
-    {
-    }
 }

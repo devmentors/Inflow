@@ -1,7 +1,6 @@
-namespace Inflow.Modules.Wallets.Application.Wallets.DTO
+namespace Inflow.Modules.Wallets.Application.Wallets.DTO;
+
+internal class TransferDetailsDto : TransferDto
 {
-    internal class TransferDetailsDto : TransferDto
-    {
-        public string Metadata { get; set; }
-    }
+    public string Metadata { get; set; }
 }

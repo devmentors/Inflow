@@ -1,7 +1,6 @@
-﻿namespace Inflow.Shared.Infrastructure.Cache
+﻿namespace Inflow.Shared.Infrastructure.Cache;
+
+public class RedisOptions
 {
-    public class RedisOptions
-    {
-        public string ConnectionString { get; set; }
-    }
+    public string ConnectionString { get; set; }
 }

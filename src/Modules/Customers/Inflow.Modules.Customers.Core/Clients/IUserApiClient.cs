@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Inflow.Modules.Customers.Core.Clients.DTO;
 
-namespace Inflow.Modules.Customers.Core.Clients
+namespace Inflow.Modules.Customers.Core.Clients;
+
+internal interface IUserApiClient
 {
-    internal interface IUserApiClient
-    {
-        Task<UserDto> GetAsync(string email);
-    }
+    Task<UserDto> GetAsync(string email);
 }

@@ -10,32 +10,31 @@ using Inflow.Shared.Abstractions.Queries;
 using Inflow.Shared.Infrastructure.Contracts;
 using Inflow.Shared.Infrastructure.Modules;
 
-namespace Inflow.Modules.Customers.Api
+namespace Inflow.Modules.Customers.Api;
+
+internal class CustomersModule : IModule
 {
-    internal class CustomersModule : IModule
-    {
-        public string Name { get; } = "Customers";
+    public string Name { get; } = "Customers";
         
-        public IEnumerable<string> Policies { get; } = new[]
-        {
-            "customers"
-        };
+    public IEnumerable<string> Policies { get; } = new[]
+    {
+        "customers"
+    };
 
-        public void Register(IServiceCollection services)
-        {
-            services.AddCore();
-        }
+    public void Register(IServiceCollection services)
+    {
+        services.AddCore();
+    }
 
-        public void Use(IApplicationBuilder app)
-        {
-            app.UseModuleRequests()
-                .Subscribe<GetCustomer, CustomerDetailsDto>("customers/get",
-                    (query, serviceProvider, cancellationToken)
-                        => serviceProvider.GetRequiredService<IQueryDispatcher>().QueryAsync(query, cancellationToken));
+    public void Use(IApplicationBuilder app)
+    {
+        app.UseModuleRequests()
+            .Subscribe<GetCustomer, CustomerDetailsDto>("customers/get",
+                (query, serviceProvider, cancellationToken)
+                    => serviceProvider.GetRequiredService<IQueryDispatcher>().QueryAsync(query, cancellationToken));
 
-            app.UseContracts()
-                .Register<SignedUpContract>()
-                .Register<UserStateUpdatedContract>();
-        }
+        app.UseContracts()
+            .Register<SignedUpContract>()
+            .Register<UserStateUpdatedContract>();
     }
 }

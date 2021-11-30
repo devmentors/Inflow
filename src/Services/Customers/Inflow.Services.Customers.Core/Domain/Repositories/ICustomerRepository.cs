@@ -2,13 +2,12 @@
 using System.Threading.Tasks;
 using Inflow.Services.Customers.Core.Domain.Entities;
 
-namespace Inflow.Services.Customers.Core.Domain.Repositories
+namespace Inflow.Services.Customers.Core.Domain.Repositories;
+
+public interface ICustomerRepository
 {
-    public interface ICustomerRepository
-    {
-        Task<bool> ExistsAsync(string name);
-        Task<Customer> GetAsync(Guid id);
-        Task AddAsync(Customer customer);
-        Task UpdateAsync(Customer customer);
-    }
+    Task<bool> ExistsAsync(string name);
+    Task<Customer> GetAsync(Guid id);
+    Task AddAsync(Customer customer);
+    Task UpdateAsync(Customer customer);
 }

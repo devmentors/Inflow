@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace Inflow.Modules.Users.Core.DTO
+namespace Inflow.Modules.Users.Core.DTO;
+
+public class UserDetailsDto : UserDto
 {
-    public class UserDetailsDto : UserDto
-    {
-        public IEnumerable<string> Permissions { get; set; }
-    }
+    public IEnumerable<string> Permissions { get; set; }
 }

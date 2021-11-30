@@ -2,43 +2,42 @@
 using System.Threading.Tasks;
 using Inflow.Shared.Abstractions.Queries;
 
-namespace Inflow.Shared.Infrastructure.Queries.Decorators
+namespace Inflow.Shared.Infrastructure.Queries.Decorators;
+
+[Decorator]
+public sealed class PagedQueryHandlerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult>
+    where TQuery : class, IQuery<TResult>
 {
-    [Decorator]
-    public sealed class PagedQueryHandlerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult>
-        where TQuery : class, IQuery<TResult>
+    private readonly IQueryHandler<TQuery, TResult> _handler;
+
+    public PagedQueryHandlerDecorator(IQueryHandler<TQuery, TResult> handler)
     {
-        private readonly IQueryHandler<TQuery, TResult> _handler;
+        _handler = handler;
+    }
 
-        public PagedQueryHandlerDecorator(IQueryHandler<TQuery, TResult> handler)
-        {
-            _handler = handler;
-        }
-
-        public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default)
-        {
-            const int maxResults = 100;
-            const int defaultResults = 10;
+    public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default)
+    {
+        const int maxResults = 100;
+        const int defaultResults = 10;
             
-            if (query is IPagedQuery pagedQuery)
+        if (query is IPagedQuery pagedQuery)
+        {
+            if (pagedQuery.Page <= 0)
             {
-                if (pagedQuery.Page <= 0)
-                {
-                    pagedQuery.Page = 1;
-                }
-
-                if (pagedQuery.Results <= 0)
-                {
-                    pagedQuery.Results = defaultResults;
-                }
-
-                if (pagedQuery.Results > maxResults)
-                {
-                    pagedQuery.Results = maxResults;
-                }
+                pagedQuery.Page = 1;
             }
 
-            return await _handler.HandleAsync(query, cancellationToken);
+            if (pagedQuery.Results <= 0)
+            {
+                pagedQuery.Results = defaultResults;
+            }
+
+            if (pagedQuery.Results > maxResults)
+            {
+                pagedQuery.Results = maxResults;
+            }
         }
+
+        return await _handler.HandleAsync(query, cancellationToken);
     }
 }

@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Inflow.Shared.Infrastructure
+namespace Inflow.Shared.Infrastructure;
+
+public interface IInitializer
 {
-    public interface IInitializer
-    {
-        Task InitAsync();
-    }
+    Task InitAsync();
 }

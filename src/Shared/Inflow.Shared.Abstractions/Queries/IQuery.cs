@@ -1,11 +1,10 @@
-﻿namespace Inflow.Shared.Abstractions.Queries
-{
-    //Marker
-    public interface IQuery
-    {
-    }
+﻿namespace Inflow.Shared.Abstractions.Queries;
 
-    public interface IQuery<T> : IQuery
-    {
-    }
+//Marker
+public interface IQuery
+{
+}
+
+public interface IQuery<T> : IQuery
+{
 }

@@ -17,25 +17,24 @@ using Inflow.Shared.Infrastructure.Postgres;
 [assembly: InternalsVisibleTo("Inflow.Modules.Payments.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace Inflow.Modules.Payments.Core
+namespace Inflow.Modules.Payments.Core;
+
+internal static class Extensions
 {
-    internal static class Extensions
+    public static IServiceCollection AddCore(this IServiceCollection services)
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
-        {
-            return services
-                .AddSingleton<ICustomerApiClient, CustomerApiClient>()
-                .AddSingleton<IWithdrawalMetadataResolver, WithdrawalMetadataResolver>()
-                .AddScoped<ICustomerRepository, CustomerRepository>()
-                .AddScoped<IDepositRepository, DepositRepository>()
-                .AddScoped<IDepositAccountRepository, DepositAccountRepository>()
-                .AddScoped<IWithdrawalRepository, WithdrawalRepository>()
-                .AddScoped<IWithdrawalAccountRepository, WithdrawalAccountRepository>()
-                .AddSingleton<ICurrencyResolver, CurrencyResolver>()
-                .AddSingleton<IDepositAccountFactory, DepositAccountFactory>()
-                .AddPostgres<PaymentsDbContext>()
-                .AddOutbox<PaymentsDbContext>()
-                .AddUnitOfWork<PaymentsUnitOfWork>();
-        }
+        return services
+            .AddSingleton<ICustomerApiClient, CustomerApiClient>()
+            .AddSingleton<IWithdrawalMetadataResolver, WithdrawalMetadataResolver>()
+            .AddScoped<ICustomerRepository, CustomerRepository>()
+            .AddScoped<IDepositRepository, DepositRepository>()
+            .AddScoped<IDepositAccountRepository, DepositAccountRepository>()
+            .AddScoped<IWithdrawalRepository, WithdrawalRepository>()
+            .AddScoped<IWithdrawalAccountRepository, WithdrawalAccountRepository>()
+            .AddSingleton<ICurrencyResolver, CurrencyResolver>()
+            .AddSingleton<IDepositAccountFactory, DepositAccountFactory>()
+            .AddPostgres<PaymentsDbContext>()
+            .AddOutbox<PaymentsDbContext>()
+            .AddUnitOfWork<PaymentsUnitOfWork>();
     }
 }

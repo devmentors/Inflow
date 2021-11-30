@@ -9,13 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 [assembly: InternalsVisibleTo("Inflow.Modules.Wallets.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace Inflow.Modules.Wallets.Application
+namespace Inflow.Modules.Wallets.Application;
+
+internal static class Extensions
 {
-    internal static class Extensions
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
-        {
-            return services;
-        }
+        return services;
     }
 }

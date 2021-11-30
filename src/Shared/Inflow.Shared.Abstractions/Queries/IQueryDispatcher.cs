@@ -1,10 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Inflow.Shared.Abstractions.Queries
+namespace Inflow.Shared.Abstractions.Queries;
+
+public interface IQueryDispatcher
 {
-    public interface IQueryDispatcher
-    {
-        Task<TResult> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken cancellationToken = default);
-    }
+    Task<TResult> QueryAsync<TResult>(IQuery<TResult> query, CancellationToken cancellationToken = default);
 }

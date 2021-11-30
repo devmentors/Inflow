@@ -1,11 +1,10 @@
 ﻿using Inflow.Shared.Infrastructure.Postgres;
 
-namespace Inflow.Services.Customers.Core.DAL
+namespace Inflow.Services.Customers.Core.DAL;
+
+public class CustomersUnitOfWork : PostgresUnitOfWork<CustomersDbContext>
 {
-    public class CustomersUnitOfWork : PostgresUnitOfWork<CustomersDbContext>
+    public CustomersUnitOfWork(CustomersDbContext dbContext) : base(dbContext)
     {
-        public CustomersUnitOfWork(CustomersDbContext dbContext) : base(dbContext)
-        {
-        }
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace Inflow.Shared.Infrastructure.Postgres
+﻿namespace Inflow.Shared.Infrastructure.Postgres;
+
+public class PostgresOptions
 {
-    public class PostgresOptions
-    {
-        public string ConnectionString { get; set; }
-    }
+    public string ConnectionString { get; set; }
 }

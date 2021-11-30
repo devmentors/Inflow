@@ -3,16 +3,15 @@ using Inflow.Shared.Infrastructure.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Inflow.Services.Customers.Api
-{
-    public class Program
-    {
-        public static Task Main(string[] args)
-            => CreateHostBuilder(args).Build().RunAsync();
+namespace Inflow.Services.Customers.Api;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
-                .UseLogging();
-    }
+public class Program
+{
+    public static Task Main(string[] args)
+        => CreateHostBuilder(args).Build().RunAsync();
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
+            .UseLogging();
 }

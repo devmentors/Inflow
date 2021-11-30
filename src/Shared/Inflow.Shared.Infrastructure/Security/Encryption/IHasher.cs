@@ -1,7 +1,6 @@
-namespace Inflow.Shared.Infrastructure.Security.Encryption
+namespace Inflow.Shared.Infrastructure.Security.Encryption;
+
+public interface IHasher
 {
-    public interface IHasher
-    {
-        string Hash(string data);
-    }
+    string Hash(string data);
 }

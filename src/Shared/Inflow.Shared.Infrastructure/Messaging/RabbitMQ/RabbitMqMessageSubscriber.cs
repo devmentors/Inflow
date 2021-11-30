@@ -4,37 +4,36 @@ using Inflow.Shared.Abstractions.Events;
 using Inflow.Shared.Abstractions.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Inflow.Shared.Infrastructure.Messaging.RabbitMQ
+namespace Inflow.Shared.Infrastructure.Messaging.RabbitMQ;
+
+internal sealed class RabbitMqMessageSubscriber : IMessageSubscriber
 {
-    internal sealed class RabbitMqMessageSubscriber : IMessageSubscriber
+    private readonly IBusSubscriber _busSubscriber;
+
+    public RabbitMqMessageSubscriber(IBusSubscriber busSubscriber)
     {
-        private readonly IBusSubscriber _busSubscriber;
+        _busSubscriber = busSubscriber;
+    }
 
-        public RabbitMqMessageSubscriber(IBusSubscriber busSubscriber)
+    public IMessageSubscriber SubscribeCommand<T>() where T : class, ICommand
+    {
+        _busSubscriber.Subscribe<T>(async (serviceProvider, command, _) =>
         {
-            _busSubscriber = busSubscriber;
-        }
+            using var scope = serviceProvider.CreateScope();
+            await scope.ServiceProvider.GetRequiredService<ICommandHandler<T>>().HandleAsync(command);
+        });
 
-        public IMessageSubscriber SubscribeCommand<T>() where T : class, ICommand
+        return this;
+    }
+
+    public IMessageSubscriber SubscribeEvent<T>() where T : class, IEvent
+    {
+        _busSubscriber.Subscribe<T>(async (serviceProvider, @event, _) =>
         {
-            _busSubscriber.Subscribe<T>(async (serviceProvider, command, _) =>
-            {
-                using var scope = serviceProvider.CreateScope();
-                await scope.ServiceProvider.GetRequiredService<ICommandHandler<T>>().HandleAsync(command);
-            });
+            using var scope = serviceProvider.CreateScope();
+            await scope.ServiceProvider.GetRequiredService<IEventHandler<T>>().HandleAsync(@event);
+        });
 
-            return this;
-        }
-
-        public IMessageSubscriber SubscribeEvent<T>() where T : class, IEvent
-        {
-            _busSubscriber.Subscribe<T>(async (serviceProvider, @event, _) =>
-            {
-                using var scope = serviceProvider.CreateScope();
-                await scope.ServiceProvider.GetRequiredService<IEventHandler<T>>().HandleAsync(@event);
-            });
-
-            return this;
-        }
+        return this;
     }
 }

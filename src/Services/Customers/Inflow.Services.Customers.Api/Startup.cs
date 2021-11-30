@@ -12,47 +12,46 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Inflow.Services.Customers.Api
+namespace Inflow.Services.Customers.Api;
+
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services)
+        services.AddControllers();
+        services.AddCore();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
         {
-            services.AddControllers();
-            services.AddCore();
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            ForwardedHeaders = ForwardedHeaders.All
+        });
+        app.UseCors("cors");
+        app.UseCorrelationId();
+        app.UseErrorHandling();
+        app.UseSwagger();
+        app.UseReDoc(reDoc =>
         {
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
-            app.UseCors("cors");
-            app.UseCorrelationId();
-            app.UseErrorHandling();
-            app.UseSwagger();
-            app.UseReDoc(reDoc =>
-            {
-                reDoc.RoutePrefix = "docs";
-                reDoc.SpecUrl("/swagger/v1/swagger.json");
-                reDoc.DocumentTitle = "Customers API";
-            });
-            app.UseAuth();
-            app.UseContext();
-            app.UseLogging();
-            app.UseRouting();
-            app.UseAuthorization();
+            reDoc.RoutePrefix = "docs";
+            reDoc.SpecUrl("/swagger/v1/swagger.json");
+            reDoc.DocumentTitle = "Customers API";
+        });
+        app.UseAuth();
+        app.UseContext();
+        app.UseLogging();
+        app.UseRouting();
+        app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapGet("/", context => context.Response.WriteAsync("Customers API"));
-            });
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+            endpoints.MapGet("/", context => context.Response.WriteAsync("Customers API"));
+        });
 
-            app.Subscriptions()
-                .SubscribeEvent<SignedUp>()
-                .SubscribeEvent<UserStateUpdated>();
-        }
+        app.Subscriptions()
+            .SubscribeEvent<SignedUp>()
+            .SubscribeEvent<UserStateUpdated>();
     }
 }

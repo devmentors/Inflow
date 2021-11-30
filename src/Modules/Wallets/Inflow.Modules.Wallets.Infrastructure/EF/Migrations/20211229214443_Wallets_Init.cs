@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Inflow.Modules.Wallets.Infrastructure.EF.Migrations
 {
     public partial class Wallets_Init : Migration

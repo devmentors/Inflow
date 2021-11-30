@@ -1,7 +1,6 @@
-namespace Inflow.Shared.Infrastructure.Logging.Options
+namespace Inflow.Shared.Infrastructure.Logging.Options;
+
+public class ConsoleOptions
 {
-    public class ConsoleOptions
-    {
-        public bool Enabled { get; set; }
-    }
+    public bool Enabled { get; set; }
 }

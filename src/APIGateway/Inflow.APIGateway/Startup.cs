@@ -5,37 +5,36 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Inflow.APIGateway
+namespace Inflow.APIGateway;
+
+public class Startup
 {
-    public class Startup
+    private readonly IConfiguration _configuration;
+
+    public Startup(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-
-        public Startup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        _configuration = configuration;
+    }
         
-        public void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddReverseProxy()
+            .LoadFromConfig(_configuration.GetSection("reverseProxy"));
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            services.AddReverseProxy()
-                .LoadFromConfig(_configuration.GetSection("reverseProxy"));
+            app.UseDeveloperExceptionPage();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        app.UseRouting();
+
+        app.UseEndpoints(endpoints =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", context => context.Response.WriteAsync("API Gateway"));
-                endpoints.MapReverseProxy();
-            });
-        }
+            endpoints.MapGet("/", context => context.Response.WriteAsync("API Gateway"));
+            endpoints.MapReverseProxy();
+        });
     }
 }
