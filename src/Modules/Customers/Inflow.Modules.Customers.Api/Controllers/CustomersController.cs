@@ -57,16 +57,6 @@ internal class CustomersController : Controller
         return NotFound();
     }
         
-    [HttpPost]
-    [SwaggerOperation("Create customer")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Post(CreateCustomer command)
-    {
-        await _dispatcher.SendAsync(command);
-        return NoContent();
-    }
-
     [HttpPut("complete")]
     [Authorize]
     [SwaggerOperation("Complete customer")]

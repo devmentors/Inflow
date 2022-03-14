@@ -97,7 +97,6 @@ public static class Extensions
         services.AddSecurity();
         services.AddSingleton<IClock, UtcClock>();
         services.AddSingleton<IDispatcher, InMemoryDispatcher>();
-        services.AddLoggingDecorators();
         services.AddPostgres();
         services.AddOutbox();
         services.AddHostedService<DbContextAppInitializer>();

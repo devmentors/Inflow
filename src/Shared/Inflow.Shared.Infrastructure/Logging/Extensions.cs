@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inflow.Shared.Infrastructure.Logging.Decorators;
 using Inflow.Shared.Infrastructure.Logging.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,10 +9,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Filters;
-using Inflow.Shared.Abstractions.Commands;
 using Inflow.Shared.Abstractions.Contexts;
-using Inflow.Shared.Abstractions.Events;
-using Inflow.Shared.Abstractions.Queries;
 
 namespace Inflow.Shared.Infrastructure.Logging;
 
@@ -23,15 +19,6 @@ public static class Extensions
     private const string FileOutputTemplate = "{Timestamp:HH:mm:ss} [{Level:u3}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}";
     private const string AppSectionName = "app";
     private const string LoggerSectionName = "logger";
-
-    public static IServiceCollection AddLoggingDecorators(this IServiceCollection services)
-    {
-        services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
-        services.TryDecorate(typeof(IEventHandler<>), typeof(LoggingEventHandlerDecorator<>));
-        services.TryDecorate(typeof(IQueryHandler<,>), typeof(LoggingQueryHandlerDecorator<,>));
-
-        return services;
-    }
 
     public static IApplicationBuilder UseLogging(this IApplicationBuilder app)
     {
