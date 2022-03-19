@@ -6,12 +6,11 @@ using Inflow.Shared.Abstractions.Messaging;
 namespace Inflow.Modules.Customers.Core.Events.External;
 
 [Message("users")]
-internal record SignedUp(Guid UserId, string Email, string Role) : IEvent;
+internal record UserStateUpdated(Guid UserId, string State) : IEvent;
 
-
-internal class SignedUpContract : Contract<SignedUp>
+internal class UserStateUpdatedContract : Contract<UserStateUpdated>
 {
-    public SignedUpContract()
+    public UserStateUpdatedContract()
     {
         RequireAll();
     }
