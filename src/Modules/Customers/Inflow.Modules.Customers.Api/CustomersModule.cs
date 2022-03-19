@@ -30,7 +30,7 @@ internal class CustomersModule : IModule
     {
         app.UseContracts()
             .Register<SignedUpContract>()
-            .Register<UserStateUpdated>();
+            .Register<UserStateUpdatedContract>();
         
         app.UseModuleRequests()
             .Subscribe<GetCustomer, CustomerDetailsDto>("customers/get",
