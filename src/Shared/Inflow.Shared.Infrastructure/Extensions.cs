@@ -33,6 +33,7 @@ using Inflow.Shared.Infrastructure.Postgres;
 using Inflow.Shared.Infrastructure.Queries;
 using Inflow.Shared.Infrastructure.Security;
 using Inflow.Shared.Infrastructure.Services;
+using Inflow.Shared.Infrastructure.Sqlite;
 
 namespace Inflow.Shared.Infrastructure;
 
@@ -99,6 +100,7 @@ public static class Extensions
         services.AddSingleton<IDispatcher, InMemoryDispatcher>();
         services.AddLoggingDecorators();
         services.AddPostgres();
+        services.AddSqlite();
         services.AddOutbox();
         services.AddHostedService<DbContextAppInitializer>();
         services.AddContracts();
@@ -134,6 +136,7 @@ public static class Extensions
         app.UseCorrelationId();
         app.UseErrorHandling();
         app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Modular API v1"));
         app.UseReDoc(reDoc =>
         {
             reDoc.RoutePrefix = "docs";

@@ -19,7 +19,8 @@ internal class PaymentsDbContext : DbContext
     public PaymentsDbContext(DbContextOptions<PaymentsDbContext> options) : base(options)
     {
     }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+        => options.UseSqlite(@"Data Source=SqliteDBFiles\SqlitePaymentsDB.db");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("payments");

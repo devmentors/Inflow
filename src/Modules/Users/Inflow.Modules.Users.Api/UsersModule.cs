@@ -26,6 +26,7 @@ internal class UsersModule : IModule
         
     public void Use(IApplicationBuilder app)
     {
+        //Event Listner
         app.UseModuleRequests()
             .Subscribe<GetUserByEmail, UserDetailsDto>("users/get",
                 (query, serviceProvider, cancellationToken) =>

@@ -11,6 +11,7 @@ using Inflow.Modules.Payments.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Inflow.Shared.Infrastructure.Messaging.Outbox;
 using Inflow.Shared.Infrastructure.Postgres;
+using Inflow.Shared.Infrastructure.Sqlite;
 
 [assembly: InternalsVisibleTo("Inflow.Modules.Payments.Api")]
 [assembly: InternalsVisibleTo("Inflow.Modules.Payments.Tests.Integration")]
@@ -33,7 +34,8 @@ internal static class Extensions
             .AddScoped<IWithdrawalAccountRepository, WithdrawalAccountRepository>()
             .AddSingleton<ICurrencyResolver, CurrencyResolver>()
             .AddSingleton<IDepositAccountFactory, DepositAccountFactory>()
-            .AddPostgres<PaymentsDbContext>()
+            //.AddPostgres<PaymentsDbContext>()
+            .AddSqlite<PaymentsDbContext>()
             .AddOutbox<PaymentsDbContext>()
             .AddUnitOfWork<PaymentsUnitOfWork>();
     }

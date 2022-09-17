@@ -13,7 +13,8 @@ internal class CustomersDbContext : DbContext
     public CustomersDbContext(DbContextOptions<CustomersDbContext> options) : base(options)
     {
     }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+        => options.UseSqlite(@"Data Source=SqliteDBFiles\SqliteCustomerDB.db");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("customers");

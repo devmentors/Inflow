@@ -27,6 +27,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddEndpointsApiExplorer();
         services.AddModularInfrastructure(_assemblies, _modules);
         foreach (var module in _modules)
         {

@@ -8,6 +8,7 @@ using Inflow.Modules.Wallets.Infrastructure.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Inflow.Shared.Infrastructure.Messaging.Outbox;
 using Inflow.Shared.Infrastructure.Postgres;
+using Inflow.Shared.Infrastructure.Sqlite;
 
 [assembly: InternalsVisibleTo("Inflow.Modules.Wallets.Api")]
 [assembly: InternalsVisibleTo("Inflow.Modules.Wallets.Tests.Contract")]
@@ -28,7 +29,8 @@ internal static class Extensions
             .AddScoped<ICorporateOwnerRepository, CorporateOwnerRepository>()
             .AddScoped<IIndividualOwnerRepository, IndividualOwnerRepository>()
             .AddScoped<IWalletRepository, WalletRepository>()
-            .AddPostgres<WalletsDbContext>()
+            .AddSqlite<WalletsDbContext>()
+            //.AddPostgres<WalletsDbContext>()
             .AddOutbox<WalletsDbContext>()
             .AddUnitOfWork<WalletsUnitOfWork>();
     }

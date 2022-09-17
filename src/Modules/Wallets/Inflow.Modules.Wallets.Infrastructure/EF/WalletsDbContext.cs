@@ -19,7 +19,8 @@ internal class WalletsDbContext : DbContext
     public WalletsDbContext(DbContextOptions<WalletsDbContext> options) : base(options)
     {
     }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+        => options.UseSqlite(@"Data Source=SqliteDBFiles\SqliteWalletsDB.db");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("wallets");
